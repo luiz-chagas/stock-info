@@ -1,0 +1,23 @@
+{
+  "name": "stock-info",
+  "version": "1.0.0",
+  "description": "Node.js module to retrieve stock information from Yahoo Finance API",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": ["stock", "price", "value", "information"],
+  "repository": "luizjr92/stock-value",
+  "author": {
+    "name": "Luiz Chagas",
+    "email": "luizchagasjr@gmail.com",
+    "url": "https://luizjr.me/"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "mocha": "^5.2.0"
+  }
+}
