@@ -1,6 +1,6 @@
 # stock-info
 
-The ** Stock Info ** library is exported as a CommonJS module.
+The **Stock Info** library is exported as a CommonJS module.
 It retrieves current stock information from Yahoo Finance API.
 
 [TOC]
