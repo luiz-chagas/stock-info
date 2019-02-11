@@ -1,4 +1,4 @@
-const http = require('http');
+const axios = require('axios');
 
 const getSingleStockInfo = stock =>
   new Promise((resolve, reject) => {
@@ -9,34 +9,23 @@ const getSingleStockInfo = stock =>
       return reject(new Error(`Invalid argument type. Required: string. Found: ${typeof stock}`));
     }
 
-    const options = {
-      hostname: 'query1.finance.yahoo.com',
-      path: `/v7/finance/quote?symbols=${stock}`,
-    };
+    const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${stock}`;
 
-    return http.get(options, (res) => {
-      let data = '';
-      res.setEncoding('utf-8');
-      res.on('data', (chunk) => {
-        data += chunk;
-      });
-      res.on('end', () => {
-        try {
-          data = JSON.parse(data);
-          if (
-            !data ||
-            !data.quoteResponse ||
-            !data.quoteResponse.result ||
-            data.quoteResponse.result.length === 0
-          ) {
-            return reject(new Error(`Error retrieving info for symbol ${stock}`));
-          }
-          return resolve(data.quoteResponse.result[0]);
-        } catch (err) {
-          return reject(err);
+    return axios
+      .get(url)
+      .then((res) => {
+        const { data } = res;
+        if (
+          !data ||
+          !data.quoteResponse ||
+          !data.quoteResponse.result ||
+          data.quoteResponse.result.length === 0
+        ) {
+          return reject(new Error(`Error retrieving info for symbol ${stock}`));
         }
-      });
-    });
+        return resolve(data.quoteResponse.result[0]);
+      })
+      .catch(err => reject(err));
   });
 
 const getStocksInfo = (stockList) => {
