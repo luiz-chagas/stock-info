@@ -3,10 +3,10 @@ const axios = require('axios');
 const getSingleStockInfo = stock =>
   new Promise((resolve, reject) => {
     if (!stock) {
-      return reject(new Error('Stock symbol required'));
+      return reject(Error('Stock symbol required'));
     }
     if (typeof stock !== 'string') {
-      return reject(new Error(`Invalid argument type. Required: string. Found: ${typeof stock}`));
+      return reject(Error(`Invalid argument type. Required: string. Found: ${typeof stock}`));
     }
 
     const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${stock}`;
@@ -28,20 +28,22 @@ const getSingleStockInfo = stock =>
       .catch(err => reject(err));
   });
 
-const getStocksInfo = (stockList) => {
+const getStocksInfo = stockList => new Promise((resolve, reject) => {
   if (!stockList) {
-    return new Error('Stock symbol list required');
+    return reject(Error('Stock symbol list required'));
   }
-  if (typeof stockList !== 'object') {
-    return new Error('Invalid argument type. Array required.');
+  if (!Array.isArray(stockList)) {
+    return reject(Error('Invalid argument type. Array required.'));
   }
+
   const list = [...stockList];
   if (!list.length || list.length < 1) {
     return Promise.resolve([]);
   }
+
   const promises = list.map(getSingleStockInfo);
-  return Promise.all(promises);
-};
+  return resolve(Promise.all(promises));
+});
 
 module.exports = {
   getSingleStockInfo,

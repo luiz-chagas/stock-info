@@ -3,8 +3,6 @@
 The **Stock Info** library is exported as a CommonJS module.
 It retrieves current stock information from Yahoo Finance API.
 
-[TOC]
-
 ## Installation
 
 Using npm:
@@ -23,7 +21,7 @@ A Promise that resolves to a stock objects
 #### Example
 ```js
 const si = require('stock-info');
-si.getSingleStockInfo('GOOG').then(stock => console.log);
+si.getSingleStockInfo('GOOG').then(console.log);
 //Outputs the result
 ```
   
@@ -37,7 +35,7 @@ A Promise that resolves to an array of stock objects
 ```js
 const si = require('stock-info');
 const stocks = ['AMZN', 'NFLIX'];
-si.getStocksInfo(stocks).then(stocks => console.log);
+si.getStocksInfo(stocks).then(console.log);
 //Outputs the result
 ```
 
@@ -45,12 +43,85 @@ si.getStocksInfo(stocks).then(stocks => console.log);
 
 The **stock** object has the following shape:
 
+```
+language: string;
+region: string;
+quoteType: string;
+quoteSourceName: string;
+triggerable: boolean;
+currency: string;
+sourceInterval: number;
+exchangeDataDelayedBy: number;
+postMarketChangePercent: number;
+postMarketTime: number;
+postMarketPrice: number;
+postMarketChange: number;
+regularMarketChange: number;
+regularMarketChangePercent: number;
+regularMarketTime: number;
+sharesOutstanding: number;
+bookValue: number;
+fiftyDayAverage: number;
+fiftyDayAverageChange: number;
+fiftyDayAverageChangePercent: number;
+twoHundredDayAverage: number;
+twoHundredDayAverageChange: number;
+twoHundredDayAverageChangePercent: number;
+marketCap: number;
+forwardPE: number;
+priceToBook: number;
+tradeable: boolean;
+priceHint: number;
+firstTradeDateMilliseconds: number;
+regularMarketPrice: number;
+regularMarketDayHigh: number;
+regularMarketDayRange: string;
+regularMarketDayLow: number;
+regularMarketVolume: number;
+regularMarketPreviousClose: number;
+bid: number;
+ask: number;
+bidSize: number;
+askSize: number;
+fullExchangeName: string;
+financialCurrency: string;
+regularMarketOpen: number;
+averageDailyVolume3Month: number;
+averageDailyVolume10Day: number;
+fiftyTwoWeekLowChange: number;
+fiftyTwoWeekLowChangePercent: number;
+fiftyTwoWeekRange: string;
+fiftyTwoWeekHighChange: number;
+fiftyTwoWeekHighChangePercent: number;
+fiftyTwoWeekLow: number;
+fiftyTwoWeekHigh: number;
+trailingPE: number;
+epsTrailingTwelveMonths: number;
+epsForward: number;
+exchange: string;
+shortName: string;
+longName: string;
+messageBoardId: string;
+exchangeTimezoneName: string;
+exchangeTimezoneShortName: string;
+gmtOffSetMilliseconds: number;
+market: string;
+esgPopulated: boolean;
+marketState: string;
+displayName: string;
+symbol: string;
+```
 
+Example:
+
+```
+regularMarketPrice: 1065.545,  
+symbol: 'GOOG'  
+longName: 'Alphabet Inc.',  
 language: 'en-US',  
 quoteType: 'EQUITY',  
 quoteSourceName: 'Nasdaq Real Time Price',  
 currency: 'USD',  
-**regularMarketPrice**: 1065.545,  
 regularMarketTime: 1527603620,  
 regularMarketChange: -10.11499,  
 regularMarketOpen: 1064.89,  
@@ -65,7 +136,6 @@ bidSize: 8,
 askSize: 13,  
 messageBoardId: 'finmb_29096',  
 fullExchangeName: 'NasdaqGS',  
-**longName**: 'Alphabet Inc.',  
 financialCurrency: 'USD',  
 sharesOutstanding: 348952000,  
 bookValue: 219.496,  
@@ -103,4 +173,4 @@ fiftyTwoWeekLow: 894.79,
 fiftyTwoWeekHigh: 1186.89,  
 esgPopulated: false,  
 tradeable: true,  
-**symbol**: 'GOOG'  
+```
