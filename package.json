@@ -1,6 +1,6 @@
 {
   "name": "stock-info",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Node.js module to retrieve stock information from Yahoo Finance API",
   "scripts": {
     "test": "mocha",
@@ -31,7 +31,6 @@
   "dependencies": {
     "axios": "^0.24.0"
   },
-  "type": "module",
   "source": "index.js",
   "exports": "./dist/index.modern.js",
   "main": "./dist/index.cjs",
