@@ -1,7 +1,7 @@
 {
   "name": "stock-info",
-  "version": "1.4.3",
-  "description": "Node.js module to retrieve stock information from Yahoo Finance API",
+  "version": "1.5.0",
+  "description": "Module to retrieve stock information from Yahoo Finance API",
   "scripts": {
     "test": "mocha",
     "build": "microbundle",
@@ -14,7 +14,7 @@
     "value",
     "information"
   ],
-  "repository": "luizjr92/stock-value",
+  "repository": "luiz-chagas/stock-info",
   "author": {
     "name": "Luiz Chagas",
     "email": "luiz@luizchagas.com",
