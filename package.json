@@ -1,6 +1,7 @@
 {
   "name": "stock-info",
-  "version": "1.6.1",
+  "type": "module",
+  "version": "1.6.2",
   "description": "Module to retrieve stock information from Yahoo Finance API",
   "files": [
     "dist",
@@ -39,7 +40,10 @@
     "axios": "^0.24.0"
   },
   "source": "src/index.ts",
-  "exports": "./dist/index.modern.js",
+  "exports": {
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.modern.js"
+  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.module.js",
   "unpkg": "./dist/index.umd.js"
