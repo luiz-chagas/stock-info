@@ -1,4 +1,6 @@
 import { Stock } from "./types";
+export { Stock } from "./types";
+
 import axios from "axios";
 
 export const getSingleStockInfo = (stock: string): Promise<Stock> =>

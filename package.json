@@ -1,9 +1,10 @@
 {
   "name": "stock-info",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Module to retrieve stock information from Yahoo Finance API",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "types": "dist/index.d.ts",
   "scripts": {
@@ -30,14 +31,14 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.2",
-    "microbundle": "^0.14.1",
+    "microbundle": "^0.14.2",
     "mocha": "^9.1.3",
     "prettier": "^2.4.1"
   },
   "dependencies": {
     "axios": "^0.24.0"
   },
-  "source": "index.ts",
+  "source": "src/index.ts",
   "exports": "./dist/index.modern.js",
   "main": "./dist/index.cjs",
   "module": "./dist/index.module.js",
