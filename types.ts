@@ -1,4 +1,4 @@
-interface Stock {
+export interface Stock {
   language: string;
   region: string;
   quoteType: string;
@@ -66,6 +66,3 @@ interface Stock {
   displayName: string;
   symbol: string;
 }
-
-export function getSingleStockInfo(stock: string): Promise<Stock>;
-export function getStocksInfo(stocks: string[]): Promise<Stock[]>;

@@ -1,6 +1,7 @@
-const axios = require("axios");
+import { Stock } from "./types";
+import axios from "axios";
 
-const getSingleStockInfo = (stock) =>
+export const getSingleStockInfo = (stock: string): Promise<Stock> =>
   new Promise((resolve, reject) => {
     if (!stock) {
       return reject(Error("Stock symbol required"));
@@ -12,16 +13,15 @@ const getSingleStockInfo = (stock) =>
     }
 
     const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${stock}`;
+    const proxy = "https://thingproxy.freeboard.io/fetch/";
+
+    const finalURL = typeof window !== "undefined" ? proxy + url : url;
 
     return axios
-      .get(url, {
-        mode: "no-cors",
+      .get(finalURL, {
         headers: {
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },
-        withCredentials: true,
-        credentials: "same-origin",
       })
       .then((res) => {
         const { data } = res;
@@ -38,7 +38,7 @@ const getSingleStockInfo = (stock) =>
       .catch((err) => reject(err));
   });
 
-const getStocksInfo = (stockList) =>
+export const getStocksInfo = (stockList: string[]): Promise<Stock[]> =>
   new Promise((resolve, reject) => {
     if (!stockList) {
       return reject(Error("Stock symbol list required"));
@@ -55,8 +55,3 @@ const getStocksInfo = (stockList) =>
     const promises = list.map(getSingleStockInfo);
     return resolve(Promise.all(promises));
   });
-
-module.exports = {
-  getSingleStockInfo,
-  getStocksInfo,
-};
