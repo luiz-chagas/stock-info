@@ -1,6 +1,3 @@
-import { Stock } from "./types";
-export { Stock } from "./types";
-
 import axios from "axios";
 
 export const getSingleStockInfo = (stock: string): Promise<Stock> =>
@@ -14,7 +11,7 @@ export const getSingleStockInfo = (stock: string): Promise<Stock> =>
       );
     }
 
-    const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${stock}`;
+    const url = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${stock}?modules=price`;
     const proxy = "https://thingproxy.freeboard.io/fetch/";
 
     const finalURL = typeof window !== "undefined" ? proxy + url : url;
@@ -27,17 +24,13 @@ export const getSingleStockInfo = (stock: string): Promise<Stock> =>
       })
       .then((res) => {
         const { data } = res;
-        if (
-          !data ||
-          !data.quoteResponse ||
-          !data.quoteResponse.result ||
-          data.quoteResponse.result.length === 0
-        ) {
+        if (!data?.quoteSummary?.result?.[0]?.price) {
           return reject(Error(`Error retrieving info for symbol ${stock}`));
         }
-        return resolve(data.quoteResponse.result[0]);
+        const { price } = data.quoteSummary.result[0] as { price: Stock };
+        return resolve(price);
       })
-      .catch((err) => reject(err));
+      .catch(reject);
   });
 
 export const getStocksInfo = (stockList: string[]): Promise<Stock[]> =>
@@ -57,3 +50,61 @@ export const getStocksInfo = (stockList: string[]): Promise<Stock[]> =>
     const promises = list.map(getSingleStockInfo);
     return resolve(Promise.all(promises));
   });
+
+export interface Stock {
+  maxAge: number;
+  preMarketChangePercent: NumberWrapper;
+  preMarketChange: NumberWrapper;
+  preMarketTime: number;
+  preMarketPrice: NumberWrapper;
+  preMarketSource: string;
+  postMarketChange: UnknownEmptyObject;
+  postMarketPrice: UnknownEmptyObject;
+  regularMarketChangePercent: NumberWrapper;
+  regularMarketChange: NumberWrapper;
+  regularMarketTime: number;
+  priceHint: NumberWrapperLongFormat;
+  regularMarketPrice: NumberWrapper;
+  regularMarketDayHigh: NumberWrapper;
+  regularMarketDayLow: NumberWrapper;
+  regularMarketVolume: NumberWrapperLongFormat;
+  averageDailyVolume10Day: UnknownEmptyObject;
+  averageDailyVolume3Month: UnknownEmptyObject;
+  regularMarketPreviousClose: NumberWrapper;
+  regularMarketSource: string;
+  regularMarketOpen: NumberWrapper;
+  strikePrice: UnknownEmptyObject;
+  openInterest: UnknownEmptyObject;
+  exchange: string;
+  exchangeName: string;
+  exchangeDataDelayedBy: number;
+  marketState: string;
+  quoteType: string;
+  symbol: string;
+  underlyingSymbol: null;
+  shortName: string;
+  longName: string;
+  currency: string;
+  quoteSourceName: string;
+  currencySymbol: string;
+  fromCurrency: null;
+  toCurrency: null;
+  lastMarket: null;
+  volume24Hr: UnknownEmptyObject;
+  volumeAllCurrencies: UnknownEmptyObject;
+  circulatingSupply: UnknownEmptyObject;
+  marketCap: NumberWrapperLongFormat;
+}
+
+export interface UnknownEmptyObject {}
+
+export interface NumberWrapperLongFormat {
+  raw: number;
+  fmt: string;
+  longFmt: string;
+}
+
+export interface NumberWrapper {
+  raw: number;
+  fmt: string;
+}
