@@ -1,7 +1,7 @@
 {
   "name": "stock-info",
   "type": "module",
-  "version": "1.6.4",
+  "version": "2.0.0",
   "description": "Module to retrieve stock information from Yahoo Finance API",
   "files": [
     "dist",
